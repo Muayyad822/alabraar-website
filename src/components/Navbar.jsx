@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaHome, FaBook, FaUserGraduate, FaEnvelope, FaMoon, FaSun } from 'react-icons/fa';
 import { MdMenu, MdClose } from 'react-icons/md';
+import logo from '../assets/alabraar.png'; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,8 +44,9 @@ const Navbar = () => {
             className="flex items-center space-x-2" 
             onClick={() => setIsOpen(false)}
           >
-            <div className="flex items-center justify-center w-10 h-10 bg-white rounded-full">
-              <span className="text-blue-600 text-xl font-bold">أ</span>
+            <div className="flex items-center justify-center bg-white w-10 h-10 rounded-full">
+              {/* <span className="text-blue-600 text-xl font-bold">أ</span> */}
+              <img src={logo} alt="alabraar logo" />
             </div>
             <span className="text-white text-xl font-bold hidden sm:block">
               AlAbraar Islamic Foundation

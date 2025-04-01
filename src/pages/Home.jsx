@@ -4,36 +4,44 @@ import About from "../components/About";
 import FAQ from "../components/FAQ";
 import Testimonials from "../components/Testimonials";
 import Teachers from "../components/Teachers";
-
+import logo from "../assets/alabraar.jpg"; 
 function Home() {
   return (
     <div className="min-h-screen font-sans bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-center py-20 mt-16 relative">
-        <FaMosque className="absolute top-4 right-4 text-white opacity-20 text-7xl" />
-        <h1 className="text-5xl font-extrabold">
-          Welcome to AlAbraar Islamic Foundation
-        </h1>
-        <p className="mt-4 text-xl">
-          Providing quality online Arabic and Islamic education
-        </p>
-        <div className="mt-6 space-x-4">
-          <Link
-            to="/admission"
-            className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-200 transition duration-300"
-          >
-            Apply for Admission
-          </Link>
-          <Link
-            to="/enquiry"
-            className="px-6 py-3 bg-green-500 text-white font-semibold rounded-full shadow-lg hover:bg-green-600 transition duration-300"
-          >
-            Make an Enquiry
-          </Link>
+    {/* Hero Section */}
+    <section className="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-center py-20 mt-16 relative">
+        <div className="relative max-w-4xl mx-auto">
+            <img
+                src={logo}
+                alt="alabraar logo"
+                className="w-52 h-52 mx-auto rounded-full shadow-lg border-4 border-white"
+            />
+            <FaMosque className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-10 text-9xl" />
+            <h1 className="text-5xl font-extrabold mt-6">
+                Welcome to AlAbraar Islamic Foundation
+            </h1>
+            <p className="mt-4 text-xl max-w-2xl mx-auto">
+                Providing quality online Arabic and Islamic education
+            </p>
         </div>
-      </section>
 
-      {/* Enhanced About Us Section */}
+        <div className="mt-8 space-x-4">
+                    <Link
+                        to="/admission"
+                        className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-200 transition duration-300"
+                    >
+                        Apply for Admission
+                    </Link>
+                    <Link
+                        to="/enquiry"
+                        className="px-6 py-3 bg-green-500 text-white font-semibold rounded-full shadow-lg hover:bg-green-600 transition duration-300"
+                    >
+                        Make an Enquiry
+                    </Link>
+                </div>
+    </section>
+
+   {/* Enhanced About Us Section */}
       <About />
 
       {/* Meet the Teachers */}
