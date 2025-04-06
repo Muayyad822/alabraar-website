@@ -8,15 +8,19 @@ const FAQ = () => {
     const faqs = [
         {
             question: "What courses do you offer?",
-            answer: "We offer Quranic Studies, Arabic Language, and Islamic Studies, covering Tajweed, grammar, and Islamic jurisprudence."
+            answer: "We offer courses in various fields including Quran Memorisation, Quran Recitation, Arabic Language and Islamic studies."
         },
         {
             question: "Is the school 100% online?",
             answer: "Yes, all our courses are conducted online, allowing students to learn from anywhere in the world."
         },
         {
-            question: "Do you offer live classes or recorded lessons?",
-            answer: "We offer both live interactive classes and recorded lessons for flexibility in learning."
+            question: "What is the mode of instruction?",
+            answer: "We offer live online classes, recorded sessions, and self-paced study materials."
+        },
+        {
+            question: "Are the courses accredited?",
+            answer: "Yes, our courses are recognized and accredited by relevant educational bodies."
         },
         {
             question: "How do I enroll?",

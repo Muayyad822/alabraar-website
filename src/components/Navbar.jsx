@@ -49,7 +49,7 @@ const Navbar = () => {
               <img src={logo} alt="alabraar logo" />
             </div>
             <span className="text-white text-xl font-bold hidden sm:block">
-              AlAbraar Islamic Foundation
+              AlAbraar Foundation
             </span>
           </Link>
 
@@ -65,7 +65,7 @@ const Navbar = () => {
               <FaUserGraduate className="inline mr-1" /> Admission
             </Link>
             <Link to="/contact" className={getLinkClass("/contact")}>
-              <FaEnvelope className="inline mr-1" /> Contact
+              <FaEnvelope className="inline mr-1" /> Make an Enquiry
             </Link>
             
             {/* Dark Mode Toggle */}
@@ -115,7 +115,7 @@ const Navbar = () => {
                 className="text-white text-xl font-bold"
                 onClick={() => setIsOpen(false)}
               >
-                AlAbraar Islamic Foundation
+                AlAbraar Foundation
               </Link>
               <button
                 onClick={() => setIsOpen(false)}
@@ -153,7 +153,7 @@ const Navbar = () => {
                 className={`text-white text-lg py-3 px-4 rounded-lg ${location.pathname === '/contact' ? 'bg-blue-700 dark:bg-blue-800' : 'hover:bg-blue-700 dark:hover:bg-blue-800'}`}
                 onClick={() => setIsOpen(false)}
               >
-                <FaEnvelope className="inline mr-2" /> Contact
+                <FaEnvelope className="inline mr-2" /> Make an Enquiry
               </Link>
             </div>
             

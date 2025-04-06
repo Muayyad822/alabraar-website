@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Admission from "./pages/Admission";
 import Enquiry from "./pages/Enquiry";
 import Courses from "./pages/Courses";
+import Footer from "./components/Footer";
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path="/enquiry" element={<Enquiry />} />
         <Route path="/courses" element={<Courses />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

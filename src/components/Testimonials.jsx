@@ -13,19 +13,32 @@ const Testimonials = () => {
         <div className="bg-white p-6 rounded-lg shadow-lg transform transition duration-300 flex-shrink-0 w-80">
           <FaQuoteLeft className="text-blue-200 text-2xl mb-2 mx-auto" />
           <p className="text-gray-700">
-            "AlAbraar Islamic Foundation has helped me improve my Quran
-            recitation significantly. The teachers are very knowledgeable!"
+            "Attending the Alabraar Arabiyyah class has truly been a beautiful
+            journey, Alhamdulillah. The lessons are impactful, the teachers are
+            dedicated and intentional, and you can genuinely feel the effort
+            they put into making learning smooth and beneficial. One thing I
+            deeply appreciate is the ease of catching up on missed classes, it
+            makes consistency less stressful. May Allah reward the organizers
+            and increase them in goodness."
           </p>
-          <h4 className="mt-4 font-semibold text-blue-600">- Aisha S., USA</h4>
+          <h4 className="mt-4 font-semibold text-blue-600">
+            - Haneefah A., Nigeria
+          </h4>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg transform transition duration-300 flex-shrink-0 w-80">
           <FaQuoteLeft className="text-blue-200 text-2xl mb-2 mx-auto" />
           <p className="text-gray-700">
-            "I now understand Arabic grammar better and can converse fluently
-            thanks to their amazing Arabic course!"
+            "Alhamdulillah Words won't do enough justice to how much impact
+            these classes has done to my life. I look forward to every Arabiyyah
+            classes because of how much Ustadh Taoheed and Ustadh Kelani
+            simplify teaching. They really make learning Arabic easy for me. If
+            I could describe Ustadh Abdulmuiz has perfect, I'd. He teaches us so
+            well and correct us with lots of compassion. He's the kind of
+            teacher who turns the classroom into a safe place and treats his
+            students like friends."
           </p>
           <h4 className="mt-4 font-semibold text-blue-600">
-            - Ahmed M., Canada
+            - Masturah H., Nigeria
           </h4>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg transform transition duration-300 flex-shrink-0 w-80">

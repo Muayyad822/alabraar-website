@@ -3,16 +3,16 @@ import {FaFemale, FaMale } from "react-icons/fa";
 const Teachers = () => {
      const teachers = [
             {
-                name: "Ustadh Ahmed Abdullah",
+                name: "Ustadh AbdulBasit Muhammad",
                 subject: "Quranic Studies",
                 bio: "An expert in Tajweed and Quranic memorization with 10+ years of teaching experience.",
                 gender: "male"
             },
             {
-                name: "Ustadha Fatima Yusuf",
-                subject: "Arabic Language",
-                bio: "Fluent in Arabic with a degree in Islamic Linguistics, passionate about making Arabic easy to learn.",
-                gender: "female"
+                name: "Ustadha AbdulQuddus Kelani",
+                subject: "Tafseer and Arabic Language ",
+                bio: "A highly knowledgeable educator specializing in Tafseer and Arabic language. Experienced in teaching classical and modern Arabic, passionate about interactive teaching methods to help students connect deeply with the Qur'an and Arabic language.",
+                gender: "male"
             },
             {
                 name: "Sheikh Muhammad Ali",

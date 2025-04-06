@@ -4,44 +4,45 @@ import About from "../components/About";
 import FAQ from "../components/FAQ";
 import Testimonials from "../components/Testimonials";
 import Teachers from "../components/Teachers";
-import logo from "../assets/alabraar.jpg"; 
+import logo from "../assets/alabraar2.jpg";
 function Home() {
   return (
-    <div className="min-h-screen font-sans bg-gray-50">
-    {/* Hero Section */}
-    <section className="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-center py-20 mt-16 relative">
+    <div className="min-h-screen font-sans bg-gray-50 relative">
+      {/* <FaMosque className="absolute top-4 left-8 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-10 text-9xl" /> */}
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-center py-20 mt-16 relative">
         <div className="relative max-w-4xl mx-auto">
-            <img
-                src={logo}
-                alt="alabraar logo"
-                className="w-52 h-52 mx-auto rounded-full shadow-lg border-4 border-white"
-            />
-            <FaMosque className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-10 text-9xl" />
-            <h1 className="text-5xl font-extrabold mt-6">
-                Welcome to AlAbraar Islamic Foundation
-            </h1>
-            <p className="mt-4 text-xl max-w-2xl mx-auto">
-                Providing quality online Arabic and Islamic education
-            </p>
+          <img
+            src={logo}
+            alt="alabraar logo"
+            className="w-55 h-55 mx-auto rounded-full shadow-lg border-4 border-white"
+          />
+          <h1 className="text-5xl font-extrabold mt-6">
+            Welcome to Al-Abraar Foundation
+          </h1>
+          <p className="mt-4 text-xl max-w-2xl mx-auto">
+            Preserving Knowledge, Nurturing Faith.
+          </p>
         </div>
 
         <div className="mt-8 space-x-4">
-                    <Link
-                        to="/admission"
-                        className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-200 transition duration-300"
-                    >
-                        Apply for Admission
-                    </Link>
-                    <Link
-                        to="/enquiry"
-                        className="px-6 py-3 bg-green-500 text-white font-semibold rounded-full shadow-lg hover:bg-green-600 transition duration-300"
-                    >
-                        Make an Enquiry
-                    </Link>
-                </div>
-    </section>
+          <Link
+            to="/admission"
+            className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-200 transition duration-300"
+          >
+            Apply for Admission
+          </Link>
+          <Link
+            to="/enquiry"
+            className="px-6 py-3 bg-green-500 text-white font-semibold rounded-full shadow-lg hover:bg-green-600 transition duration-300"
+          >
+            Make an Enquiry
+          </Link>
+        </div>
+      </section>
 
-   {/* Enhanced About Us Section */}
+      {/* About Us Section */}
       <About />
 
       {/* Meet the Teachers */}
@@ -198,6 +199,149 @@ function Home() {
                 <Link
                   to="/courses/quran"
                   className="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition duration-200"
+                >
+                  Explore Course
+                </Link>
+              </div>
+            </div>
+
+            {/* Quran Memorization */}
+
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="bg-pink-600 h-2 w-full"></div>
+              <div className="p-6 text-center">
+                <div className="bg-pink-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                  <svg
+                    className="w-8 h-8 text-pink-600"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {/* Quran Book Icon */}
+                    <path
+                      d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    {/* Islamic Decoration */}
+                    <path
+                      d="M12 7V7.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M12 11V11.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M12 15V15.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M8 7V7.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M8 11V11.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M8 15V15.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M16 7V7.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M16 11V11.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Quran Memorization
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Structured program for memorizing the Quran with Tajweed.
+                </p>
+                <ul className="text-left text-sm text-gray-500 mb-6 space-y-2">
+                  <li className="flex items-center">
+                    <svg
+                      className="w-4 h-4 mr-2 text-green-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    Beginner-friendly
+                  </li>
+                  <li className="flex items-center">
+                    <svg
+                      className="w-4 h-4 mr-2 text-green-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    Individualized feedback
+                  </li>
+                  <li className="flex items-center">
+                    <svg
+                      className="w-4 h-4 mr-2 text-green-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    Certification available
+                  </li>
+                </ul>
+                <Link
+                  to="/courses/quran"
+                  className="inline-block px-6 py-2 bg-pink-600 text-white font-medium rounded-lg hover:bg-pink-700 transition duration-200"
                 >
                   Explore Course
                 </Link>
@@ -464,8 +608,9 @@ function Home() {
           <div className="mt-16 bg-blue-50 rounded-2xl p-8 md:p-12 border border-blue-200">
             <div className="max-w-4xl mx-auto text-center">
               <h3 className="text-2xl md:text-3xl font-bold text-blue-800 mb-6">
-                Why Choose Our Courses?
+                Why Choose Us?
               </h3>
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white p-4 rounded-lg shadow-sm">
                   <div className="bg-blue-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-3">
@@ -479,15 +624,15 @@ function Home() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                        d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
                   </div>
                   <h4 className="font-semibold text-blue-700 mb-1">
-                    Secure Learning
+                    Dedicated Support System
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Gender-segregated classes available
+                    Experts on ground to assist you
                   </p>
                 </div>
                 <div className="bg-white p-4 rounded-lg shadow-sm">
@@ -551,12 +696,12 @@ function Home() {
         <div className="mt-8 max-w-md mx-auto bg-gray-50 p-6 rounded-lg shadow-md">
           <ul className="space-y-3 text-left">
             <li className="flex justify-between border-b pb-2">
-              <span className="font-medium">Weekdays</span>
-              <span>9:00 AM - 8:00 PM (GMT)</span>
+              <span className="font-medium">Morning and Evening Batches</span>
+              {/* <span>9:00 AM - 8:00 PM (GMT)</span> */}
             </li>
             <li className="flex justify-between border-b pb-2">
-              <span className="font-medium">Weekends</span>
-              <span>10:00 AM - 6:00 PM (GMT)</span>
+              <span className="font-medium">Weekend classes</span>
+              {/* <span>10:00 AM - 6:00 PM (GMT)</span> */}
             </li>
             <li className="pt-2 text-sm text-gray-600">
               * Flexible timings available for private classes
@@ -594,7 +739,7 @@ function Home() {
         <div className="mt-8 text-blue-100">
           <p className="text-xl">
             Join our community of{" "}
-            <span className="font-bold text-white">500+</span> students
+            <span className="font-bold text-white">100+</span> students
             worldwide
           </p>
         </div>
