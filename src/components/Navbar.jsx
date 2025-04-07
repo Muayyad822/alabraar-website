@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FaHome, FaBook, FaUserGraduate, FaEnvelope, FaMoon, FaSun } from 'react-icons/fa';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FaHome, FaBook, FaUserGraduate, FaEnvelope, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { MdMenu, MdClose } from 'react-icons/md';
-import logo from '../assets/alabraar.png'; 
+import logo from '../assets/alabraar.png';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [darkMode, ] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsOpen(false);
+  };
 
   // Handle scroll effect
   useEffect(() => {
@@ -19,23 +27,68 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle dark mode
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
-
   const getLinkClass = (path) => {
     return location.pathname === path
       ? "text-white bg-blue-700 dark:bg-blue-800 px-3 py-2 rounded-lg font-medium"
       : "text-white hover:bg-blue-700 dark:hover:bg-blue-800 px-3 py-2 rounded-lg font-medium transition-colors duration-200";
   };
 
+  // Desktop Navigation - Update the user profile section
+  const userSection = user ? (
+    <div className="relative group">
+      <button className="flex items-center text-white hover:bg-blue-700 px-3 py-2 rounded-lg font-medium transition-colors duration-200">
+        <FaUser className="inline mr-1" /> {user.name}
+      </button>
+      <div className="absolute right-0 w-48 py-2 mt-2 bg-white rounded-lg shadow-xl hidden group-hover:block">
+        <Link
+          to="/profile"
+          className="block px-4 py-2 text-gray-800 hover:bg-blue-50"
+        >
+          Profile
+        </Link>
+        <button
+          onClick={handleLogout}
+          className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50"
+        >
+          <FaSignOutAlt className="inline mr-2" /> Logout
+        </button>
+      </div>
+    </div>
+  ) : (
+    <Link to="/login" className="text-white hover:bg-blue-700 px-3 py-2 rounded-lg font-medium transition-colors duration-200">
+      <FaUser className="inline mr-1" /> Login
+    </Link>
+  );
+
+  // Mobile Navigation - Update the user section
+  const mobileuserSection = user ? (
+    <>
+      <Link 
+        to="/profile" 
+        className={`text-white text-lg py-3 px-4 rounded-lg ${location.pathname === '/profile' ? 'bg-blue-700' : 'hover:bg-blue-700'}`}
+        onClick={() => setIsOpen(false)}
+      >
+        <FaUser className="inline mr-2" /> Profile
+      </Link>
+      <button 
+        onClick={handleLogout}
+        className="w-full text-left text-white text-lg py-3 px-4 rounded-lg hover:bg-red-700"
+      >
+        <FaSignOutAlt className="inline mr-2" /> Logout
+      </button>
+    </>
+  ) : (
+    <Link 
+      to="/login" 
+      className="text-white text-lg py-3 px-4 rounded-lg hover:bg-blue-700"
+      onClick={() => setIsOpen(false)}
+    >
+      <FaUser className="inline mr-2" /> Login
+    </Link>
+  );
+
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'py-2 shadow-xl' : 'py-4'} ${darkMode ? 'bg-gray-900' : 'bg-gradient-to-r from-blue-600 to-blue-800'}`}>
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'py-2 shadow-xl' : 'py-4'} bg-gradient-to-r from-blue-600 to-blue-800`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -54,7 +107,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-4">
             <Link to="/" className={getLinkClass("/")}>
               <FaHome className="inline mr-1" /> Home
             </Link>
@@ -67,27 +120,11 @@ const Navbar = () => {
             <Link to="/contact" className={getLinkClass("/contact")}>
               <FaEnvelope className="inline mr-1" /> Make an Enquiry
             </Link>
-            
-            {/* Dark Mode Toggle */}
-            {/* <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="ml-4 p-2 rounded-full text-white hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors duration-200"
-              aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
-            >
-              {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
-            </button> */}
+            {userSection}
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
-            {/* <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="mr-4 p-2 rounded-full text-white hover:bg-blue-700 transition-colors duration-200"
-              aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
-            >
-              {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
-            </button> */}
-            
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-white focus:outline-none"
@@ -155,6 +192,9 @@ const Navbar = () => {
               >
                 <FaEnvelope className="inline mr-2" /> Make an Enquiry
               </Link>
+              
+              {/* Updated User Profile/Login Button in mobile menu */}
+              {mobileuserSection}
             </div>
             
             <div className="mt-auto p-6 border-t border-blue-500 dark:border-gray-700">

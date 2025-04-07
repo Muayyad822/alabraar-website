@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaBook, FaLanguage, FaGraduationCap, FaMosque, FaCheck, FaTimes, FaClock, FaUsers, FaUser } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
+import AuthModal from "../components/auth/AuthModal";
 
 export default function Courses() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSyllabus, setSelectedSyllabus] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const openSyllabusModal = (index) => {
     setSelectedSyllabus(courses[index].syllabus);
@@ -20,6 +25,15 @@ export default function Courses() {
   const handleOutsideClick = (e) => {
     if (e.target.className === "overlay") {
       closeSyllabusModal();
+    }
+  };
+
+  const handleEnrollClick = (course) => {
+    if (user) {
+      navigate('/admission', { state: { selectedCourse: course.title } });
+    } else {
+      setSelectedCourse(course);
+      setIsAuthModalOpen(true);
     }
   };
 
@@ -181,12 +195,12 @@ export default function Courses() {
                   >
                     View Syllabus
                   </button>
-                  <Link
-                    to="/admission"
+                  <button
+                    onClick={() => handleEnrollClick(course)}
                     className="flex-1 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 text-center transition"
                   >
                     Enroll Now
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -257,6 +271,14 @@ export default function Courses() {
           </div>
         </div>
       </footer>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onSuccess={() => setIsAuthModalOpen(false)}
+        selectedCourse={selectedCourse}
+      />
     </div>
   );
 }

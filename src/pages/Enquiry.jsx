@@ -9,8 +9,6 @@ function Enquiry() {
     course: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,41 +18,39 @@ function Enquiry() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
+    
+    // Format the message for WhatsApp
+    const whatsappMessage = `
+*New Enquiry from Website*
+------------------------
+*Name:* ${formData.name}
+*Email:* ${formData.email}
+*Phone:* ${formData.phone || 'Not provided'}
+*Interested Course:* ${formData.course || 'Not specified'}
+*Message:*
+${formData.message}
+------------------------
+    `.trim();
 
-    try {
-      // Replace with your Google Apps Script Web App URL
-      const scriptUrl = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-      
-      const response = await fetch(scriptUrl, {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+    // Encode the message for URL
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    
+    // WhatsApp API URL with your number
+    const whatsappUrl = `https://wa.me/2348169017058?text=${encodedMessage}`;
+    
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, '_blank');
 
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          course: '',
-          message: ''
-        });
-      } else {
-        throw new Error('Submission failed');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      course: '',
+      message: ''
+    });
   };
 
   return (
@@ -78,22 +74,11 @@ function Enquiry() {
           </div>
 
           <form onSubmit={handleSubmit} className="p-6 sm:p-8">
-            {submitStatus === 'success' && (
-              <div className="mb-6 p-4 bg-green-100 text-green-700 rounded-lg">
-                Thank you! Your message has been sent successfully. We'll contact you soon.
-              </div>
-            )}
-            {submitStatus === 'error' && (
-              <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg">
-                There was an error submitting your form. Please try again later.
-              </div>
-            )}
-
             <div className="space-y-6">
               {/* Name Field */}
               <div className="relative">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name
+                  Full Name *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -115,7 +100,7 @@ function Enquiry() {
               {/* Email Field */}
               <div className="relative">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address
+                  Email Address *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -137,7 +122,7 @@ function Enquiry() {
               {/* Phone Field */}
               <div className="relative">
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number (Optional)
+                  Phone Number *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -149,8 +134,9 @@ function Enquiry() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
+                    required
                     className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    placeholder="+1 (123) 456-7890"
+                    placeholder="+234 XXX XXX XXXX"
                   />
                 </div>
               </div>
@@ -158,7 +144,7 @@ function Enquiry() {
               {/* Course Selection */}
               <div className="relative">
                 <label htmlFor="course" className="block text-sm font-medium text-gray-700 mb-1">
-                  Interested Course (Optional)
+                  Interested Course *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -169,6 +155,7 @@ function Enquiry() {
                     name="course"
                     value={formData.course}
                     onChange={handleChange}
+                    required
                     className="pl-10 block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 appearance-none"
                   >
                     <option value="">Select a course...</option>
@@ -183,7 +170,7 @@ function Enquiry() {
               {/* Message Field */}
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Your Message
+                  Your Message *
                 </label>
                 <textarea
                   id="message"
@@ -201,10 +188,9 @@ function Enquiry() {
               <div>
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  Send Message via WhatsApp
                 </button>
               </div>
             </div>
@@ -215,11 +201,11 @@ function Enquiry() {
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-medium text-gray-900 mb-2">Email Us</h3>
-            <p className="text-gray-600">info@alabraar.edu</p>
+            <p className="text-gray-600">foundationalabraar@gmail.com</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Call Us</h3>
-            <p className="text-gray-600">+1 (123) 456-7890</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Call/WhatsApp</h3>
+            <p className="text-gray-600">+234 816 901 7058</p>
           </div>
         </div>
       </div>
