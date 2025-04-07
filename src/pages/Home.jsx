@@ -716,7 +716,7 @@ function Home() {
       {/* Call to Action */}
       <section className="text-center py-12 bg-gradient-to-r from-blue-500 to-blue-700 text-white">
         <h2 className="text-3xl font-bold">
-          Join AlAbraar Islamic Foundation Today!
+          Join Al-Abraar Foundation Today!
         </h2>
         <p className="mt-4 text-lg">
           Start your journey towards Islamic and Arabic excellence.

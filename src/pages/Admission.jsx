@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FaUser, FaEnvelope, FaBook, FaCalendarAlt, FaVenusMars, FaInfoCircle, FaPaperPlane, FaPhoneAlt } from "react-icons/fa";
+import { useState } from 'react';
+import { FaBook, FaEnvelope, FaPhoneAlt, FaCalendarAlt, FaVenusMars, FaPaperPlane, FaInfoCircle, FaUser } from 'react-icons/fa';
 
 export default function Admission() {
   const [formData, setFormData] = useState({
@@ -59,8 +59,8 @@ export default function Admission() {
         throw new Error('Submission failed');
       }
     } catch (error) {
-      console.error('Error:', error);
-      setSubmitStatus('error');
+      console.error('Form submission error:', error);
+      setSubmitStatus(error.message || 'Failed to submit form. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -72,7 +72,7 @@ export default function Admission() {
         <div className="text-center mb-10">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
             <span className="block">Admission Application</span>
-            <span className="block text-blue-600">AlAbraar Islamic Foundation</span>
+            <span className="block text-blue-600">Al-Abraar Foundation</span>
           </h2>
           <p className="mt-3 text-xl text-gray-600">
             Begin your journey of Islamic knowledge today
@@ -88,6 +88,11 @@ export default function Admission() {
           </div>
 
           <form onSubmit={handleSubmit} className="p-6 sm:p-8">
+            {isSubmitting && (
+              <div className="absolute inset-0 bg-white/50 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+              </div>
+            )}
             {submitStatus === 'success' && (
               <div className="mb-6 p-4 bg-green-100 text-green-700 rounded-lg">
                 <FaInfoCircle className="inline mr-2" />
@@ -324,7 +329,7 @@ export default function Admission() {
             <li>Begin your learning journey!</li>
           </ol>
           <div className="mt-4 text-sm text-gray-600">
-            <p>Need help? Contact us at <a href="mailto:admissions@alabraar.edu" className="text-blue-600 hover:underline">admissions@alabraar.edu</a></p>
+            <p>Need help? Contact us at <a href="mailto:foundationalabraar@gmail.com" className="text-blue-600 hover:underline">foundationalabraar@gmail.com</a></p>
           </div>
         </div>
       </div>

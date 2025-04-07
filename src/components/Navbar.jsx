@@ -49,7 +49,7 @@ const Navbar = () => {
               <img src={logo} alt="alabraar logo" />
             </div>
             <span className="text-white text-xl font-bold hidden sm:block">
-              AlAbraar Foundation
+              Al-Abraar Foundation
             </span>
           </Link>
 
