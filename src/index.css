@@ -2,7 +2,7 @@
 
 body{
     padding-top: 7rem;
-    background: linear-gradient(to right, #2B6CB0, #2C5282);
+    background: linear-gradient(to right, #EBF8FF, #BEE3F8); /* Tailwind's blue-gradient */
 }
 
 /* Custom scrollbar styling */
@@ -22,4 +22,38 @@ body{
 
 ::-webkit-scrollbar-track {
     background-color: #EBF8FF; /* Tailwind's blue-100 */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Add these new utility classes */
+.min-h-main {
+    min-height: calc(100vh - 7rem); /* 7rem accounts for the padding-top we already have */
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    flex: 1 0 auto;
+}
+
+.footer-wrapper {
+    flex-shrink: 0;
 }

@@ -15,38 +15,41 @@ const courseSchema = new mongoose.Schema({
     required: [true, 'Course duration is required']
   },
   pricing: {
-    group: {
-      type: Number,
-      required: true
-    },
-    private: {
-      type: Number,
-      required: true
-    }
+    group: String,
+    private: String
   },
-  features: [{
-    type: String
+  features: [String],
+  curriculum: [{
+    title: String,
+    sections: [{
+      title: String,
+      content: String,
+      duration: String,
+      resources: [String]
+    }]
   }],
-  syllabus: [{
-    type: String
-  }],
-  instructor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  enrolledStudents: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
+  syllabus: [String],
   status: {
     type: String,
     enum: ['active', 'inactive', 'draft'],
     default: 'active'
-  }
+  },
+  thumbnail: {
+    url: String,
+    publicId: String
+  },
+  instructor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  enrolledStudents: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 }, {
   timestamps: true
 });
 
-const Course = mongoose.model('Course', courseSchema);
+export default mongoose.model('Course', courseSchema);
 
-export default Course;

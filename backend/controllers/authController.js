@@ -2,14 +2,33 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
+const ADMIN_CODE = process.env.ADMIN_CODE;
+
 export const signup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role, adminCode } = req.body;
+
+    // Debug logging
+    console.log('Received admin code:', adminCode);
+    console.log('Expected admin code:', process.env.ADMIN_CODE);
+    console.log('Role requested:', role);
 
     // Validate input
     if (!name || !email || !password) {
       return res.status(400).json({ 
         message: 'Please provide all required fields' 
+      });
+    }
+
+    // Validate admin code if trying to create admin/teacher account
+    if ((role === 'admin' || role === 'teacher') && adminCode !== process.env.ADMIN_CODE) {
+      return res.status(403).json({ 
+        message: 'Invalid admin code',
+        debug: {
+          receivedCode: adminCode,
+          expectedCode: process.env.ADMIN_CODE,
+          role: role
+        }
       });
     }
 
@@ -29,7 +48,8 @@ export const signup = async (req, res) => {
     const user = new User({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      role: role || 'student' // Default to student if no role specified
     });
 
     await user.save();
@@ -64,39 +84,76 @@ export const signup = async (req, res) => {
   }
 };
 
+const generateToken = (user) => {
+  return jwt.sign(
+    { 
+      userId: user._id,
+      role: user.role 
+    },
+    process.env.JWT_SECRET,
+    { 
+      expiresIn: '7d' 
+    }
+  );
+};
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find user by email
+    // Find user and explicitly include password field
     const user = await User.findOne({ email }).select('+password');
+    
+    // Check if user exists
     if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid email or password'
+      });
     }
 
-    // Check password
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Check if password matches
+    const isMatch = await user.matchPassword(password);
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid email or password'
+      });
     }
 
-    // Generate JWT
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '7d' }
-    );
+    // Check if user is active
+    if (!user.isActive) {
+      return res.status(401).json({
+        success: false,
+        message: 'Your account has been deactivated. Please contact support.'
+      });
+    }
 
-    // Return user data (excluding password) and token
-    const userResponse = {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role
-    };
+    // Generate token
+    const token = generateToken(user);
 
-    res.json({ user: userResponse, token });
+    // Send response
+    res.json({
+      success: true,
+      data: {
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role
+        },
+        token
+      }
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Error logging in', error: error.message });
+    console.error('Login error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error during login'
+    });
   }
 };
+
+
+
+

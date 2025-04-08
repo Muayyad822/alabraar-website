@@ -117,10 +117,18 @@ const Navbar = () => {
             <Link to="/admission" className={getLinkClass("/admission")}>
               <FaUserGraduate className="inline mr-1" /> Admission
             </Link>
-            <Link to="/contact" className={getLinkClass("/contact")}>
+            <Link to="/contact" className={getLinkClass("/enquiry")}>
               <FaEnvelope className="inline mr-1" /> Make an Enquiry
             </Link>
             {userSection}
+            {user && user.role === 'admin' && (
+              <Link
+                to="/admin"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Admin Dashboard
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -186,7 +194,7 @@ const Navbar = () => {
                 <FaUserGraduate className="inline mr-2" /> Admission
               </Link>
               <Link 
-                to="/contact" 
+                to="/enquiry" 
                 className={`text-white text-lg py-3 px-4 rounded-lg ${location.pathname === '/contact' ? 'bg-blue-700 dark:bg-blue-800' : 'hover:bg-blue-700 dark:hover:bg-blue-800'}`}
                 onClick={() => setIsOpen(false)}
               >

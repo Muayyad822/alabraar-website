@@ -8,11 +8,21 @@ export default function SignUp({ onSuccess, selectedCourse }) {
     email: '',
     password: '',
     confirmPassword: '',
+    adminCode: '',
+    role: 'student'
   });
+  const [showAdminFields, setShowAdminFields] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  const handleAdminCodeChange = (e) => {
+    const code = e.target.value;
+    setFormData({ ...formData, adminCode: code });
+    // Show role selection if admin code is entered
+    setShowAdminFields(code.length > 0);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +35,13 @@ export default function SignUp({ onSuccess, selectedCourse }) {
 
     setIsLoading(true);
 
+    // Debug logging
+    console.log('Sending signup data:', {
+      ...formData,
+      password: '[REDACTED]',
+      confirmPassword: '[REDACTED]'
+    });
+
     try {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
@@ -34,17 +51,13 @@ export default function SignUp({ onSuccess, selectedCourse }) {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          password: formData.password
+          password: formData.password,
+          role: showAdminFields ? formData.role : 'student',
+          adminCode: formData.adminCode
         }),
       });
 
-      // Log the raw response for debugging
-      console.log('Response status:', response.status);
-      const text = await response.text();
-      console.log('Response text:', text);
-
-      // Only parse if there's actual content
-      const data = text ? JSON.parse(text) : {};
+      const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || 'Failed to create account');
@@ -53,7 +66,9 @@ export default function SignUp({ onSuccess, selectedCourse }) {
       login(data.user, data.token);
       onSuccess();
       
-      if (selectedCourse) {
+      if (data.user.role === 'admin') {
+        navigate('/admin');
+      } else if (selectedCourse) {
         navigate('/admission', { state: { selectedCourse } });
       }
     } catch (err) {
@@ -116,6 +131,32 @@ export default function SignUp({ onSuccess, selectedCourse }) {
         />
       </div>
 
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Admin Code (optional)</label>
+        <input
+          type="password"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          value={formData.adminCode}
+          onChange={handleAdminCodeChange}
+          placeholder="Enter admin code if applicable"
+        />
+      </div>
+
+      {showAdminFields && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Role</label>
+          <select
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            value={formData.role}
+            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+          >
+            <option value="admin">Admin</option>
+            <option value="teacher">Teacher</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+      )}
+
       <button
         type="submit"
         disabled={isLoading}
@@ -126,4 +167,6 @@ export default function SignUp({ onSuccess, selectedCourse }) {
     </form>
   );
 }
+
+
 

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -40,10 +41,17 @@ const userSchema = new mongoose.Schema({
   enrolledCourses: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Course'
-  }]
-}, {
-  timestamps: true
+  }],
+  isActive: {
+    type: Boolean,
+    default: true
+  }
 });
+
+// Add method to compare passwords
+userSchema.methods.matchPassword = async function(enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 // Add any pre-save hooks or methods here
 userSchema.pre('save', function(next) {
@@ -54,3 +62,4 @@ userSchema.pre('save', function(next) {
 const User = mongoose.model('User', userSchema);
 
 export default User;
+

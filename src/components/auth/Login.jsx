@@ -30,7 +30,8 @@ export default function LoginForm({ onSuccess }) {
         throw new Error(data.message || 'Login failed');
       }
 
-      login(data.user, data.token);
+      // Make sure we're accessing the correct data structure
+      login(data.data.user, data.data.token);
       onSuccess();
     } catch (err) {
       setError(err.message);
@@ -79,4 +80,5 @@ export default function LoginForm({ onSuccess }) {
     </form>
   );
 }
+
 
